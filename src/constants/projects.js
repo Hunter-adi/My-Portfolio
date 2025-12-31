@@ -1,31 +1,35 @@
-// src/constants/projects.js
 export const PROJECTS = [
   {
     id: 1,
-    title: "Quantum Dashboard",
-    category: "Web App / UI-UX",
-    image: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&fit=crop&q=80&w=800",
-    size: "md:col-span-2",
+    title: "V1 Portfolio",
+    category: "Web Development",
+    // Yahan 'image' key miss ho gayi thi, ab fix kar di hai
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800", 
+    link: "https://portfolio-lac-psi-57.vercel.app/",
+    description: "Mera pehla portfolio project jisme maine React aur core CSS basics par focus kiya tha.",
   },
   {
     id: 2,
-    title: "Nova E-Commerce",
-    category: "Next.js / Stripe",
-    image: "https://images.unsplash.com/photo-1557821552-17105176677c?auto=format&fit=crop&q=80&w=800",
-    size: "md:col-span-1",
+    title: "Quantum Dashboard",
+    category: "Web App / UI-UX",
+    image: "https://images.unsplash.com/photo-1551288049-bbdac8626ad1?auto=format&fit=crop&q=80&w=800",
+    link: "#",
+    description: "Next-gen analytics dashboard jisme real-time data tracking aur dark-mode UI diya gaya hai.",
   },
   {
     id: 3,
-    title: "Aura AI",
-    category: "AI / Machine Learning",
-    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800",
-    size: "md:col-span-1",
+    title: "Nova E-Commerce",
+    category: "Next.js / Stripe",
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&q=80&w=800",
+    link: "#",
+    description: "Modern shopping experience with high-speed performance and secure checkout.",
   },
   {
     id: 4,
-    title: "Zenith Studio",
-    category: "GSAP / Framer Motion",
-    image: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=800",
-    size: "md:col-span-2",
-  },
+    title: "Aura AI",
+    category: "AI / Machine Learning",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc463867000?auto=format&fit=crop&q=80&w=800",
+    link: "#",
+    description: "AI-powered tool jo content generation aur workflow automation ko simplify karta hai.",
+  }
 ];

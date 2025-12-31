@@ -1,10 +1,11 @@
 "use client";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { PROJECTS } from "@/constants/projects";
 
 const ProjectCard = ({ project, index }) => {
   const ref = useRef(null);
+  
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
@@ -16,21 +17,25 @@ const ProjectCard = ({ project, index }) => {
     <div ref={ref} className="relative mb-32 md:mb-48 last:mb-0">
       <div className={`flex flex-col ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"} gap-10 items-center justify-center`}>
         
-        {/* Project Image Section (Size Reduced) */}
+        {/* Project Image Section */}
         <div className="w-full md:w-[45%] overflow-hidden rounded-2xl bg-zinc-900 group relative aspect-[4/3] border border-white/5">
           <motion.div style={{ y }} className="relative h-full w-full">
-            <img
-              src={project.image}
-              alt={project.title}
-              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
-            />
+            {project.image ? (
+               <img
+               src={project.image}
+               alt={project.title}
+               className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
+             />
+            ) : (
+              <div className="w-full h-full bg-zinc-800 flex items-center justify-center text-zinc-600 font-bold tracking-tighter uppercase text-xs">Image Missing</div>
+            )}
           </motion.div>
           <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-all duration-500" />
         </div>
 
         {/* Project Info Section */}
-        <div className="w-full md:w-[35%] space-y-5 px-4">
-          <div className="flex items-center gap-4">
+        <div className="w-full md:w-[35%] space-y-5 px-4 text-center md:text-left">
+          <div className="flex items-center justify-center md:justify-start gap-4">
             <span className="text-zinc-800 font-black text-4xl md:text-6xl italic">0{index + 1}</span>
             <span className="text-zinc-500 uppercase tracking-widest text-[9px] font-bold">
               {project.category}
@@ -42,14 +47,19 @@ const ProjectCard = ({ project, index }) => {
           </h3>
 
           <p className="text-zinc-500 text-base font-light leading-relaxed">
-            Scalable architecture aur modern UI patterns ka use karke ek clean user experience deliver kiya gaya hai.
+            {project.description || "Scalable architecture aur modern UI patterns ka use karke ek clean user experience deliver kiya gaya hai."}
           </p>
 
           <div className="pt-4">
-             <button className="group flex items-center gap-4 text-white uppercase text-[10px] font-black tracking-[0.4em] border-b border-white/10 pb-2 hover:border-white transition-all shadow-[0_5px_15px_rgba(255,255,255,0.05)]">
+             <a 
+              href={project.link || "#"} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-4 text-white uppercase text-[10px] font-black tracking-[0.4em] border-b border-white/10 pb-2 hover:border-white transition-all shadow-[0_5px_15px_rgba(255,255,255,0.05)]"
+             >
                Live Demo
                <span className="group-hover:translate-x-2 transition-transform">→</span>
-             </button>
+             </a>
           </div>
         </div>
       </div>
@@ -59,12 +69,18 @@ const ProjectCard = ({ project, index }) => {
 
 export default function Projects() {
   const [isHovered, setIsHovered] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   const springConfig = { damping: 25, stiffness: 120 };
   const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
+  const smoothY = useSpring(mouseY, springConfig); // Fixed: springStatus changed to springConfig
 
   function handleMouseMove({ clientX, clientY, currentTarget }) {
     const { left, top } = currentTarget.getBoundingClientRect();
@@ -79,6 +95,8 @@ export default function Projects() {
       : `radial-gradient(400px circle at 50% 50%, rgba(255,255,255,0), transparent 80%)`
   );
 
+  if (!mounted) return null;
+
   return (
     <section 
       id="projects" 
@@ -87,13 +105,13 @@ export default function Projects() {
       onMouseLeave={() => setIsHovered(false)}
       className="py-40 bg-black text-white px-6 relative overflow-hidden"
     >
-      {/* Spotlight Effect */}
+      {/* Spotlight Overlay */}
       <motion.div 
         className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500"
         style={{ background: spotlight, opacity: isHovered ? 1 : 0 }}
       />
 
-      {/* Grid Background */}
+      {/* Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] opacity-30 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -104,10 +122,14 @@ export default function Projects() {
           </h2>
         </div>
 
-        <div className="space-y-10">
-          {PROJECTS.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
-          ))}
+        <div className="space-y-20">
+          {PROJECTS?.length > 0 ? (
+            PROJECTS.map((project, index) => (
+              <ProjectCard key={project.id || index} project={project} index={index} />
+            ))
+          ) : (
+            <p className="text-zinc-500 uppercase tracking-widest text-xs">Awaiting Projects...</p>
+          )}
         </div>
       </div>
     </section>
