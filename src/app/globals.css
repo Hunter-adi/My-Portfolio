@@ -1,29 +1,43 @@
 @import "tailwindcss";
 
-/* 1. Base Setup */
 :root {
-  --background: #050505; /* Solid Black for your theme */
-  --foreground: #ffffff;
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
-html {
-  scroll-behavior: smooth !important;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
-  background-color: var(--background);
+  background: var(--background);
   color: var(--foreground);
-  overflow-x: hidden; /* Horizontal scroll rokne ke liye */
-  font-family: sans-serif; /* Tailwind fonts will override this */
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* src/app/globals.css */
+html {
+  scroll-behavior: smooth;
 }
 
-/* 2. Custom Scrollbar (Dark & Sleek) */
+/* Optional: Har section screen ke beech mein snap karega */
+section {
+  scroll-snap-align: start;
+}
+
+main {
+  scroll-snap-type: y proximity;
+}
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -33,16 +47,15 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1a1a1a;
+  background: #222;
   border-radius: 10px;
-  border: 2px solid #050505;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #333;
+  background: #444;
 }
 
-/* 3. Navbar Active State Styles */
+/* Navbar Active State Styles */
 .nav-active {
   color: white !important;
   text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
@@ -52,15 +65,8 @@ body {
 .mobile-nav-active {
   color: white !important;
   transform: translateY(-5px);
-  transition: all 0.3s ease;
 }
 
 .mobile-nav-active span {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-}
-
-/* 4. Selection Highlight */
-::selection {
-  background-color: white;
-  color: black;
 }

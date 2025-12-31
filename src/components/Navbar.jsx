@@ -13,76 +13,50 @@ export default function Navbar() {
 
   return (
     <>
-      {/* --- DESKTOP NAVBAR (Wahi tumhara original wala) --- */}
+      {/* --- DESKTOP NAVBAR (Fixed z-index) --- */}
       <motion.nav 
-        initial={{ y: -100, x: "-50%", opacity: 0 }}
-        animate={{ y: 0, x: "-50%", opacity: 1 }}
-        transition={{ duration: 0.8, ease: "circOut" }}
-        className="hidden md:block fixed top-8 left-1/2 z-[100] bg-zinc-900/40 backdrop-blur-xl border border-white/5 px-8 py-4 rounded-full shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+        className="hidden md:block fixed top-8 left-1/2 -translate-x-1/2 z-[999] bg-zinc-900/40 backdrop-blur-xl border border-white/5 px-8 py-4 rounded-full shadow-2xl"
       >
         <ul className="flex gap-10 items-center">
           {navItems.map((item) => (
-            <li key={item.name} className="relative group">
+            <li key={item.name}>
               <Link
                 to={item.to}
                 smooth={true}
-                duration={400}
-                easing="easeInOutQuart"
                 spy={true}
-                offset={-20}
+                offset={-80}
                 activeClass="nav-active"
-                className="text-zinc-500 hover:text-white cursor-pointer text-[10px] uppercase tracking-[0.3em] font-black transition-all duration-300 relative z-10"
+                className="text-zinc-500 hover:text-white cursor-pointer text-[10px] uppercase tracking-[0.3em] font-black transition-all"
               >
                 {item.name}
               </Link>
-              <motion.div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-all shadow-[0_0_8px_white]" />
             </li>
           ))}
         </ul>
       </motion.nav>
 
-      {/* --- MOBILE NAVBAR (Ab screen se bahar nahi jayega) --- */}
+      {/* --- MOBILE NAVBAR (Position & Size Fixed) --- */}
       <motion.nav 
-        initial={{ y: 100, x: "-50%", opacity: 0 }}
-        animate={{ y: 0, x: "-50%", opacity: 1 }}
-        className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[92%] max-w-[360px] bg-zinc-900/90 backdrop-blur-2xl border border-white/10 px-4 py-3 rounded-[2rem] shadow-2xl"
+        className="md:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-[999] w-[85%] max-w-[320px] bg-zinc-900/95 backdrop-blur-3xl border border-white/10 px-6 py-4 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
       >
-        <ul className="flex justify-between items-center w-full">
+        <ul className="flex justify-between items-center gap-2">
           {navItems.map((item) => (
             <li key={item.name} className="flex-1">
               <Link
                 to={item.to}
                 smooth={true}
-                duration={400}
                 spy={true}
+                offset={0}
                 activeClass="mobile-nav-active"
-                className="flex flex-col items-center gap-1 text-zinc-500 transition-all"
+                className="flex flex-col items-center gap-1.5 text-zinc-500 transition-all active:scale-90"
               >
                 <span className="text-xl">{item.icon}</span>
-                <span className="text-[7px] uppercase tracking-widest font-black">{item.name}</span>
+                <span className="text-[8px] uppercase tracking-tighter font-bold">{item.name}</span>
               </Link>
             </li>
           ))}
         </ul>
       </motion.nav>
-
-      <style jsx global>{`
-        /* Desktop Active State (Tumhari Original Settings) */
-        .nav-active {
-          color: white !important;
-          text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
-          letter-spacing: 0.4em !important;
-        }
-
-        /* Mobile Active State */
-        .mobile-nav-active {
-          color: white !important;
-          transform: translateY(-4px);
-        }
-        .mobile-nav-active span {
-          text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
-      `}</style>
     </>
   );
 }
