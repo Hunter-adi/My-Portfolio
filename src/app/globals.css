@@ -37,3 +37,36 @@ section {
 main {
   scroll-snap-type: y proximity;
 }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Navbar Active State Styles */
+.nav-active {
+  color: white !important;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.4em !important;
+}
+
+.mobile-nav-active {
+  color: white !important;
+  transform: translateY(-5px);
+}
+
+.mobile-nav-active span {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
