@@ -13,11 +13,11 @@ export default function Navbar() {
 
   return (
     <>
-      {/* --- DESKTOP NAVBAR --- */}
+      {/* --- DESKTOP NAVBAR (Original Sleek Size) --- */}
       <motion.nav 
         className="hidden md:block fixed top-8 left-1/2 -translate-x-1/2 z-[999] bg-zinc-900/40 backdrop-blur-xl border border-white/5 px-8 py-4 rounded-full shadow-2xl"
       >
-        <ul className="flex gap-10 items-center">
+        <ul className="flex gap-8 items-center"> {/* Gap ko 10 se wapas 8 kar diya taaki chota dikhe */}
           {navItems.map((item) => (
             <li key={item.name}>
               <Link
@@ -25,11 +25,9 @@ export default function Navbar() {
                 smooth={true}
                 spy={true}
                 offset={-80}
-                // --- QUICK RESPONSE CHANGES ---
-                duration={300}        // Duration 300ms kar diya (kafi fast)
-                delay={0}             // Koi delay nahi
-                easing="easeOutQuart" // Fast acceleration
-                // -----------------------------
+                duration={300}        // Speed fast rahegi
+                delay={0}
+                easing="easeOutQuart"
                 activeClass="nav-active"
                 className="text-zinc-500 hover:text-white cursor-pointer text-[10px] uppercase tracking-[0.3em] font-black transition-all"
               >
@@ -40,7 +38,7 @@ export default function Navbar() {
         </ul>
       </motion.nav>
 
-      {/* --- MOBILE NAVBAR --- */}
+      {/* --- MOBILE NAVBAR (Wahi same optimized version) --- */}
       <motion.nav 
         className="md:hidden fixed bottom-8 left-1/2 -translate-x-1/2 z-[999] w-[85%] max-w-[320px] bg-zinc-900/95 backdrop-blur-3xl border border-white/10 px-6 py-4 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
       >
@@ -52,11 +50,9 @@ export default function Navbar() {
                 smooth={true}
                 spy={true}
                 offset={0}
-                // --- QUICK RESPONSE CHANGES ---
-                duration={300}        // Mobile par bhi same fast response
+                duration={300}
                 delay={0}
                 easing="easeOutQuart"
-                // -----------------------------
                 activeClass="mobile-nav-active"
                 className="flex flex-col items-center gap-1.5 text-zinc-500 transition-all active:scale-90"
               >
